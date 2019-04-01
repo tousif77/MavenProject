@@ -1,0 +1,6 @@
+projectKey=com.mycompany:MavenProject
+serverUrl=http://localhost:9000
+serverVersion=6.7.6.38781
+dashboardUrl=http://localhost:9000/dashboard/index/com.mycompany:MavenProject
+ceTaskId=AWnX4_XLRmW4m6bfNwgr
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWnX4_XLRmW4m6bfNwgr
