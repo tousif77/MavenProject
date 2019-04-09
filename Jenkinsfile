@@ -16,10 +16,6 @@ node {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
    
-  //  stage ('Publish Build') {
-    //    server.publishBuildInfo buildInfo
-    //}
-	
 	stage('SonarQube analysis') {
         mvnHome = tool 'mavenhome'
 		withSonarQubeEnv('sonarqube') {
@@ -28,14 +24,16 @@ node {
 	}
 		
     stage ('Artifactory configuration') {
-        mvnHome = tool 'mavenhome'
+      //  mvnHome = tool 'mavenhome'
         rtMaven.tool = 'mavenhome' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
         rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
         buildInfo = Artifactory.newBuildInfo()
         buildInfo.env.capture = true
     }
-	
+	stage ('Publish Build') {
+     server.publishBuildInfo buildInfo
+    }
    stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.jar'
