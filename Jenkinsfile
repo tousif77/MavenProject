@@ -16,9 +16,9 @@ node {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
    
-    stage ('Publish Build') {
-        server.publishBuildInfo buildInfo
-    }
+  //  stage ('Publish Build') {
+    //    server.publishBuildInfo buildInfo
+    //}
 	
 	stage('SonarQube analysis') {
         mvnHome = tool 'mavenhome'
