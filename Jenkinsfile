@@ -35,9 +35,15 @@ node {
 	stage ('Publish Build') {
      server.publishBuildInfo buildInfo
     }
-	stage ('Docker Build & Push')
+	stage ('Login')
 	{
 	sh "sudo docker login -u chiragmakkar13 -p $PASS"
+	
+	
+	}
+	stage ('Docker Build & Push')
+	{
+	//sh "sudo docker login -u chiragmakkar13 -p $PASS"
 	  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 	//sh "docker login -u chiragmakkar13 -p $PASS"
         def customImage = docker.build("chiragmakkar13/mavendemo:latest")
