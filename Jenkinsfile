@@ -35,12 +35,6 @@ node {
 	stage ('Publish Build') {
      server.publishBuildInfo buildInfo
     }
-	stage ('Login')
-	{
-		if (isUnix()) {
-         sh "sudo docker login -u chiragmakkar13 -p $PASS"
-      } 
-	}
 	stage ('Docker Build & Push')
 	{
 	//sh "sudo docker login -u chiragmakkar13 -p $PASS"
