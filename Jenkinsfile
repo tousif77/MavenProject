@@ -37,7 +37,7 @@ node {
     }
 	stage ('Docker Build & Push')
 	{
-	  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+	  docker.withRegistry('https://hub.docker.com/r/chiragmakkar13/mavendemo', 'dockerhub') {
 
         def customImage = docker.build("chiragmakkar13/mavendemo:latest")
 
