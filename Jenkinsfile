@@ -23,7 +23,7 @@ node {
    
 	stage('SonarQube analysis') {
         mvnHome = tool 'mavenhome'
-		withSonarQubeEnv('sonarqube') {
+		withSonarQubeEnv('sonar') {
         rtMaven.run pom: 'pom.xml', goals: '$SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL', buildInfo: buildInfo
 		}
 	}
