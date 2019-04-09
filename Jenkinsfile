@@ -38,7 +38,7 @@ node {
 	stage ('Docker Build & Push')
 	{
 	  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-
+	sh "docker login -u chiragmakkar13 -p $PASS"
         def customImage = docker.build("chiragmakkar13/mavendemo:latest")
 
         /* Push the container to the custom Registry */
