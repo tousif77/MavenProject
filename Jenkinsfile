@@ -1,4 +1,4 @@
-pipeline {
+node {
     agent any
 	def server = Artifactory.server 'artifactory'
     def rtMaven = Artifactory.newMavenBuild()
@@ -7,8 +7,7 @@ pipeline {
     jdk = tool name: 'JAVA8'
     env.JAVA_HOME = "${jdk}"
     
-    stages {
-		stage ('Clone') {
+    stage ('Clone') {
 			steps {
 					git branch: 'master', url: "https://github.com/ChiragMakkar13/FirstDemo.git"
 				}
@@ -43,7 +42,7 @@ pipeline {
       archive 'target/*.jar'
    }
  }
-}
+
 
 
 
