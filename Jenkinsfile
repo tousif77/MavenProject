@@ -7,7 +7,7 @@ node {
     env.JAVA_HOME = "${jdk}"
     
    stage ('Clone') {			
-	git clone https://github.com/ChiragMakkar13/MavenProject
+	git branch: 'master', url: "https://github.com/ChiragMakkar13/MavenProject.git"
 		}
 			
 	stage ('Maven Build') {
