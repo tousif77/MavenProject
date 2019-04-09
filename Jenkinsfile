@@ -1,5 +1,5 @@
 node {
-	def server = Artifactory.server 'artifactory'
+	def server = Artifactory.server 'artifactory' 
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
     def mvnHome
@@ -22,7 +22,10 @@ node {
         rtMaven.run pom: 'pom.xml', goals: '$SONAR_MAVEN_GOAL -Dsonar.host.url=$SONAR_HOST_URL', buildInfo: buildInfo
 		}
 	}
-		
+	stage('Results') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archive 'target/*.jar'
+   }	
     stage ('Artifactory configuration') {
       //  mvnHome = tool 'mavenhome'
         rtMaven.tool = 'mavenhome' // Tool name from Jenkins configuration
@@ -34,10 +37,7 @@ node {
 	stage ('Publish Build') {
      server.publishBuildInfo buildInfo
     }
-   stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
-   }
+  
  }
 
 
