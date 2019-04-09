@@ -35,6 +35,17 @@ node {
 	stage ('Publish Build') {
      server.publishBuildInfo buildInfo
     }
+	stage ('Docker Build & Push')
+	{
+	  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+
+        def customImage = docker.build("chiragmakkar13/mavendemo:${env.BUILD_ID}")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
+    }
+	
+	}
   
  }
 
