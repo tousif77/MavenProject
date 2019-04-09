@@ -26,8 +26,8 @@ node {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.jar'
    }	
-    stage ('Artifactory configuration') {
-      //  mvnHome = tool 'mavenhome'
+   stage ('Artifactory configuration') {
+        mvnHome = tool 'mavenhome'
         rtMaven.tool = 'mavenhome' // Tool name from Jenkins configuration
         rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
         rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
