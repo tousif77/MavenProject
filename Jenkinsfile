@@ -37,9 +37,9 @@ node {
     }
 	stage ('Login')
 	{
-	sh "sudo docker login -u chiragmakkar13 -p $PASS"
-	
-	
+		if (isUnix()) {
+         sh "sudo docker login -u chiragmakkar13 -p $PASS"
+      } 
 	}
 	stage ('Docker Build & Push')
 	{
