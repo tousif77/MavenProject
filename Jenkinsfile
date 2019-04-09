@@ -11,6 +11,8 @@ node {
 		}
 			
 	stage ('Maven Build') {
+	mvnHome = tool 'mavenhome'
+	rtMaven.tool = 'mavenhome' 
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
     }
    
