@@ -6,11 +6,9 @@ node {
     jdk = tool name: 'JAVA8'
     env.JAVA_HOME = "${jdk}"
     
-    stage ('Clone') {
-			steps {
-					git branch: 'master', url: "https://github.com/ChiragMakkar13/FirstDemo.git"
-				}
-			}
+   stage ('Clone') {			
+	git clone https://github.com/ChiragMakkar13/MavenProject
+		}
 			
 	stage ('Maven Build') {
         rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
