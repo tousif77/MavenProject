@@ -1,11 +1,6 @@
  node {
    	
-		 stage('Preparation') { // for display purposes
-      // Get some code from a GitHub repository
-      git 'https://github.com/ChiragMakkar13/MavenProject.git'
-	  
-	  }
-
+	
     stage('Build Image'){
         //def customImage = sudo docker.build("chiragmakkar13/mavendemo:latest")
         sh "sudo docker build -t chiragmakkar13/mavendemo:Dockerfile ."
