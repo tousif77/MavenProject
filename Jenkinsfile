@@ -35,19 +35,39 @@ node {
 	stage ('Publish Build') {
      server.publishBuildInfo buildInfo
     }
-	stage ('Docker Build & Push')
-	{
+	//stage ('Docker Build & Push')
+	//{
 	//sh "sudo docker login -u chiragmakkar13 -p $PASS"
-	  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+	  //docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 	//sh "docker login -u chiragmakkar13 -p $PASS"
-        def customImage = docker.build("chiragmakkar13/mavendemo:latest")
+        //def customImage = docker.build("chiragmakkar13/mavendemo:latest")
 
         /* Push the container to the custom Registry */
-        customImage.push(latest)
+        //customImage.push(latest)
+    //}	}
+ 	stage('Docker Image Build'){
+	   sh "sudo docker build -t chiragmakkar13/mavendemo:Dockerfile ."
+        //def customImage = docker.build("chiragmakkar13/mavendemo:latest")
     }
+
+    stage('Push Image') {
+        def JENKIN_VERSION = sh returnStdout: true, script: "cat Dockerfile | head -n 1 | awk -F ':' '{print \$2}' | awk -F '-' '{print \$1}'"
+        withCredentials([usernamePassword(
+            credentialsId: "dockerhub",
+            usernameVariable: "USER",
+            passwordVariable: "PASS"
+        )]) {
+            sh "sudo docker login -u $USER -p $PASS"
+        }
+
+        sh "sudo docker tag chiragmakkar13/mavendemo:latest chiragmakkar13/mavendemo:$BUILD_NUMBER"
+        //sh "docker tag chiragmakkar13/mavendemo:latest chiragmakkar13/mavendemo:$JENKINS_VERSION"
+        sh "sudo docker push chiragmakkar13/mavendemo:latest"
+        sh "sudo docker push chiragmakkar13/mavendemo:$BUILD_NUMBER"
+    } 
 	
-	}
-  
+	
+	
  }
 
 
