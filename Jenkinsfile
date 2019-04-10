@@ -32,7 +32,7 @@ node {
       archive 'target/*.jar'
    }	
  
-	stage ('Publish Build') {
+	stage ('Artifactory Build Publish') {
      server.publishBuildInfo buildInfo
     }
 	stage('Docker Image Build'){
@@ -40,8 +40,7 @@ node {
           }
 
     stage('Push Image') {
-        //def JENKIN_VERSION = sh returnStdout: true, script: "cat Dockerfile | head -n 1 | awk -F ':' '{print \$2}' | awk -F '-' '{print \$1}'"
-        withCredentials([usernamePassword(
+            withCredentials([usernamePassword(
             credentialsId: "dockerhub",
             usernameVariable: "USER",
             passwordVariable: "PASS"
